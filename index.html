@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Radio Elegance FM</title>
+  <meta name="theme-color" content="#0b0d0f" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  <meta name="apple-mobile-web-app-title" content="Radio" />
+  <link rel="apple-touch-icon" href="/api/icon?size=192" />
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <link rel="icon" href="/api/icon" />
+  <link rel="stylesheet" href="/styles.css?v=137" />
+</head>
+<body>
+  <div class="page-bg"></div><div class="background-photo" id="backgroundPhoto"></div>
+  <div class="shell">
+    <aside class="sidebar glass">
+      <div class="brand-mini"><img id="miniLogo" src="/assets/logo-placeholder.svg" alt="Logo"><div><strong id="miniName">Radio Elegance FM</strong><small id="miniTag">Música que te acompaña</small></div></div>
+      <nav class="nav">
+        <a class="active" href="#inicio"><span class="ico">⌂</span>Inicio</a>
+        <a href="#historial"><span class="ico">↶</span>Historial</a>
+        <a id="navRequest" href="#"><span class="ico">♫</span><span id="requestLabelSide">Pedir canción</span></a>
+        <a href="#redes"><span class="ico">◇</span>Redes</a>
+        <a id="installNav" class="install-link hidden" href="#"><span class="ico">⇩</span>Instalar app</a>
+      </nav>
+      <div class="socials" id="socials"></div>
+      <div class="credit" id="credit">Diseñado por FG Media Studios</div>
+    </aside>
+
+    <main class="main" id="inicio">
+      <section class="player">
+        <div class="mobile-head"><button class="menu-btn" id="menuBtn" aria-label="Abrir menú">☰</button><img id="mobileLogo" src="/assets/logo-placeholder.svg" alt="Logo"><span class="mobile-head-spacer" aria-hidden="true"></span></div>
+        <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
+          <div class="drawer-backdrop" id="drawerBackdrop"></div>
+          <div class="drawer-panel glass">
+            <div class="drawer-head"><div class="brand-mini"><img id="drawerLogo" src="/assets/logo-placeholder.svg" alt="Logo"><div><strong id="drawerName">Radio Elegance FM</strong><small id="drawerTag">Música que te acompaña</small></div></div><button id="drawerClose" class="drawer-close" aria-label="Cerrar menú">×</button></div>
+            <nav class="nav drawer-nav">
+              <a class="active" href="#inicio"><span class="ico">⌂</span>Inicio</a>
+              <a href="#historial"><span class="ico">↶</span>Historial</a>
+              <a id="drawerRequest" href="#"><span class="ico">♫</span><span id="requestLabelDrawer">Pedir canción</span></a>
+              <a href="#redes"><span class="ico">◇</span>Redes</a>
+              <a id="installDrawer" class="install-link hidden" href="#"><span class="ico">⇩</span>Instalar app</a>
+            </nav>
+            <div class="socials drawer-socials" id="drawerSocials"></div>
+            <div class="credit" id="drawerCredit">Diseñado por FG Media Studios</div>
+          </div>
+        </div>
+        <div class="topline"><div style="text-align:left"><div class="station-title" id="stationTitle">Radio Elegance FM</div><div class="tagline" id="tagline">Música que te acompaña</div></div><div class="live"><i></i><span id="liveLabel">EN VIVO</span></div></div>
+        <div class="visual" aria-label="Visualizador animado">
+          <div class="wave paused" id="wave"></div>
+          <div class="ring r1"></div><div class="ring r2"></div><div class="ring r3"></div>
+          <div class="logo-wrap"><div><img id="mainLogo" class="placeholder" src="/assets/logo-placeholder.svg" alt="Logo de la radio"></div></div>
+        </div>
+        <div class="now-block"><div class="now-label">Ahora suena</div>
+        <div class="song" id="song">Programación en vivo</div>
+        <div class="artist" id="artist">Radio Elegance FM</div></div>
+        <div class="controls">
+          <button class="round" id="muteBtn" aria-label="Silenciar">◔</button>
+          <button class="play" id="playBtn" aria-label="Reproducir">▶</button>
+          <button class="round" id="requestBtn" aria-label="Pedir canción">♫</button>
+        </div>
+        <div class="volume-row" id="volumeRow">
+          <button class="volume-icon" id="volumeIcon" type="button" aria-label="Silenciar o activar sonido" title="Silenciar / activar">
+            <span class="speaker">🔊</span>
+            <span class="volume-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+          </button>
+          <div class="volume-control">
+            <input id="volume" type="range" min="0" max="1" step="0.01" value="0.8" aria-label="Volumen">
+          </div>
+          <span id="volumePct" class="volume-pct">80%</span>
+        </div>
+        <div class="local-info" id="localInfo">
+          <div class="local-card weather-card">
+            <span class="local-icon" id="weatherIcon" aria-hidden="true">☀️</span>
+            <div><small>Clima en tu zona</small><strong id="weatherText">Detectando ubicación…</strong><em id="weatherDetail">Permite ubicación para ver el clima</em></div>
+          </div>
+          <div class="local-card time-card">
+            <span class="local-icon" aria-hidden="true">🕐</span>
+            <div><small>Hora local</small><strong id="localTime">--:--</strong><em id="localDate">Tu hora actual</em></div>
+          </div>
+          <button class="local-card location-card" id="locationCard" type="button" aria-label="Usar mi ubicación">
+            <span class="local-icon" aria-hidden="true">📍</span>
+            <span><small>Tu ubicación</small><strong id="userLocation">Ubicación no detectada</strong><em id="locationHint">Toca para permitir ubicación</em></span>
+          </button>
+        </div>
+        <audio id="audio" preload="none" playsinline></audio>
+      </section>
+    </main>
+
+    <aside class="history glass" id="historial">
+      <h3>◷ &nbsp; ÚLTIMAS CANCIONES</h3>
+      <div class="tracks" id="tracks"><div class="empty">El historial aparecerá cuando cambien los metadatos.</div></div>
+      <a class="request-btn" id="requestLink" href="#">Pedir canción</a>
+    </aside>
+  </div>
+<script>
+const $=s=>document.querySelector(s);let config={},lastTrackKey='',history=[],zenoES=null,metadataTimer=null,clockTimer=null,weatherRefreshTimer=null,userWeatherTimezone='';
+function esc(s){return String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
+function makeWave(){const w=$('#wave');w.innerHTML='';for(let i=0;i<84;i++){const b=document.createElement('span');const center=1-Math.abs(i-42)/42;b.style.height=(8+center*76*(.35+Math.random()*.65))+'px';b.style.animationDelay=(-Math.random()*1.1)+'s';w.appendChild(b)}}
+function setCss(c){const r=document.documentElement.style;const w1=c.waveColor1||c.accent||'#d9a441',w2=c.waveColor2||'#2f80ed';const desktop=Math.max(24,Math.min(72,Number(c.stationTitleSizeDesktop??52)||52));const mobile=Math.max(18,Math.min(46,Number(c.stationTitleSizeMobile??30)||30));r.setProperty('--wave1',w1);r.setProperty('--wave2',w2);r.setProperty('--accent',w1);r.setProperty('--accent-soft',c.accentSoft||'#f3dfb2');r.setProperty('--panel',c.panel||'#111424');r.setProperty('--text',c.text||'#f7f8ff');r.setProperty('--muted',c.muted||'#aeb4c7');r.setProperty('--station-title-desktop',desktop+'px');r.setProperty('--station-title-mobile',mobile+'px');document.body.classList.toggle('hide-station-title-mobile',c.showStationTitleMobile===false);}
+function applyLogoAnimation(c){
+  const mode=['none','elegant','pulse','float','shine'].includes(c.logoAnimation)?c.logoAnimation:'elegant';
+  const intensity=Math.max(0,Math.min(100,Number(c.logoAnimationIntensity??38)));
+  const root=document.documentElement.style;
+  root.setProperty('--logo-scale',(1+intensity*.00055).toFixed(4));
+  root.setProperty('--logo-lift',(2+intensity*.06).toFixed(1)+'px');
+  root.setProperty('--logo-halo',(0.12+intensity*.0032).toFixed(3));
+  root.setProperty('--logo-shine',(0.10+intensity*.0042).toFixed(3));
+  document.body.dataset.logoAnimation=mode;
+}
+function imgSrc(){return config.logoData||'/assets/logo-placeholder.svg'}
+function resolvedFallbackArtist(){const v=(config.fallbackArtist||'').trim();return !v||v==='Radio Elegance FM'?config.brandName:v}
+function applyConfig(c){config=c;setCss(c);applyLogoAnimation(c);document.title=c.brandName||'Radio';document.querySelector('meta[name="theme-color"]').content=c.themeColor||'#0b0d0f';const appleTitle=document.querySelector('meta[name="apple-mobile-web-app-title"]');if(appleTitle)appleTitle.content=c.pwaShortName||c.brandName||'Radio';
+  ['mainLogo','miniLogo','mobileLogo','drawerLogo'].forEach(id=>{const el=document.getElementById(id);if(!el)return;el.src=imgSrc();el.classList.toggle('placeholder',!c.logoData)});
+  $('#stationTitle').textContent=c.brandName||'Radio';$('#miniName').textContent=c.brandName||'Radio';$('#drawerName').textContent=c.brandName||'Radio';$('#tagline').textContent=c.tagline||'';$('#miniTag').textContent=c.tagline||'';$('#drawerTag').textContent=c.tagline||'';$('#liveLabel').textContent=c.liveLabel||'EN VIVO';
+  $('#localInfo').style.display=c.showLocalInfo===false?'none':'';
+  for(const id of ['credit','drawerCredit']){const el=document.getElementById(id);el.textContent=c.developerCredit||'';el.style.display=c.showDeveloperCredit?'block':'none'}
+  $('#backgroundPhoto').style.backgroundImage=c.backgroundData?`url(${c.backgroundData})`:'none';
+  $('#requestLabelSide').textContent=c.requestLabel||'Pedir canción';$('#requestLabelDrawer').textContent=c.requestLabel||'Pedir canción';$('#requestLink').textContent=c.requestLabel||'Pedir canción';
+  for(const el of [$('#requestBtn'),$('#requestLink'),$('#navRequest'),$('#drawerRequest')]){if(c.requestUrl){el.onclick=null;el.href=c.requestUrl;el.target='_blank'}else{el.onclick=(e)=>{e.preventDefault();toast('El enlace de solicitudes aún no está configurado')}}}
+  buildSocials();$('#historial').style.display=c.showHistory===false?'none':'';startLocalInfo();
+}
+function socialIcon(name){
+  const icons={
+    facebook:`<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 22v-9h3l.45-3.5H13.5V7.26c0-1.01.28-1.7 1.74-1.7H17V2.44c-.3-.04-1.32-.13-2.52-.13-2.49 0-4.2 1.52-4.2 4.32V9.5H7.46V13h2.82v9h3.22Z"/></svg>`,
+    instagram:`<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7Zm10.25 1.5a1.25 1.25 0 1 1 0 2.5 1.25 1.25 0 0 1 0-2.5ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"/></svg>`,
+    tiktok:`<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.4 2h3.1c.2 1.7 1.15 3.2 2.6 4.15A7.2 7.2 0 0 0 22 7v3.15a10.8 10.8 0 0 1-4.5-1.25v6.2A6.9 6.9 0 1 1 11.6 8.3v3.45a3.55 3.55 0 1 0 2.8 3.47V2Z"/></svg>`,
+    youtube:`<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.2a3.02 3.02 0 0 0-2.13-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.37.51A3.02 3.02 0 0 0 .5 6.2 31.1 31.1 0 0 0 0 12a31.1 31.1 0 0 0 .5 5.8 3.02 3.02 0 0 0 2.13 2.14c1.87.51 9.37.51 9.37.51s7.5 0 9.37-.51a3.02 3.02 0 0 0 2.13-2.14A31.1 31.1 0 0 0 24 12a31.1 31.1 0 0 0-.5-5.8ZM9.6 15.6V8.4l6.23 3.6-6.23 3.6Z"/></svg>`,
+    whatsapp:`<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.52 3.48A11.8 11.8 0 0 0 2 17.7L.45 23.4l5.84-1.53A11.8 11.8 0 0 0 24 11.56c0-3.15-1.23-6.1-3.48-8.08ZM12.1 21.37a9.8 9.8 0 0 1-4.99-1.36l-.36-.21-3.46.91.93-3.37-.23-.35A9.78 9.78 0 1 1 12.1 21.37Zm5.37-7.34c-.29-.15-1.74-.86-2.01-.96-.27-.1-.47-.15-.67.15-.2.29-.76.96-.94 1.16-.17.2-.34.22-.64.07-.29-.15-1.24-.46-2.36-1.45-.87-.78-1.46-1.74-1.63-2.03-.17-.3-.02-.46.13-.61.13-.13.29-.34.44-.51.14-.17.19-.3.29-.49.1-.2.05-.37-.03-.51-.07-.15-.66-1.6-.91-2.19-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.51.07-.78.37-.27.29-1.03 1.01-1.03 2.46s1.06 2.85 1.2 3.05c.15.2 2.08 3.18 5.04 4.46.7.3 1.25.49 1.68.63.71.22 1.35.19 1.86.12.57-.09 1.74-.71 1.99-1.4.24-.69.24-1.28.17-1.4-.07-.12-.27-.2-.56-.34Z"/></svg>`,
+    website:`<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm6.92 6h-3.03a15.7 15.7 0 0 0-1.39-3.18A8.05 8.05 0 0 1 18.92 8ZM12 4c.83 1 1.67 2.37 2.06 4H9.94C10.33 6.37 11.17 5 12 4ZM4.26 14a8.05 8.05 0 0 1 0-4h3.28a16.9 16.9 0 0 0 0 4H4.26Zm.82 2h3.03c.31 1.18.79 2.27 1.39 3.18A8.05 8.05 0 0 1 5.08 16ZM8.11 8H5.08A8.05 8.05 0 0 1 9.5 4.82 15.7 15.7 0 0 0 8.11 8ZM12 20c-.83-1-1.67-2.37-2.06-4h4.12C13.67 17.63 12.83 19 12 20Zm2.42-6H9.58a14.6 14.6 0 0 1 0-4h4.84a14.6 14.6 0 0 1 0 4Zm.08 5.18c.6-.91 1.08-2 1.39-3.18h3.03a8.05 8.05 0 0 1-4.42 3.18ZM16.46 14a16.9 16.9 0 0 0 0-4h3.28a8.05 8.05 0 0 1 0 4h-3.28Z"/></svg>`
+  };
+  return icons[name]||'';
+}
+function socialMarkup(){return [
+  ['facebook','Facebook',config.facebook],
+  ['instagram','Instagram',config.instagram],
+  ['tiktok','TikTok',config.tiktok],
+  ['youtube','YouTube',config.youtube],
+  ['whatsapp','WhatsApp',config.whatsapp],
+  ['website','Sitio web',config.website]
+].filter(x=>x[2]).map(([name,label,u])=>`<a class="social-icon social-${name}" target="_blank" rel="noopener" href="${esc(u)}" aria-label="${label}" title="${label}">${socialIcon(name)}</a>`).join('')}
+
+function buildSocials(){const html=socialMarkup();$('#socials').innerHTML=html;$('#drawerSocials').innerHTML=html}
+function toast(t){const d=document.createElement('div');d.className='toast';d.textContent=t;document.body.appendChild(d);setTimeout(()=>d.remove(),2600)}
+function weatherCodeInfo(code,isDay=true){
+  const c=Number(code);if(c===0)return{icon:isDay?'☀️':'🌙',text:'Despejado'};
+  if([1,2].includes(c))return{icon:isDay?'🌤️':'☁️',text:c===1?'Mayormente despejado':'Parcialmente nublado'};
+  if(c===3)return{icon:'☁️',text:'Nublado'};if([45,48].includes(c))return{icon:'🌫️',text:'Niebla'};
+  if([51,53,55,56,57].includes(c))return{icon:'🌦️',text:'Llovizna'};if([61,63,65,66,67,80,81,82].includes(c))return{icon:'🌧️',text:'Lluvia'};
+  if([71,73,75,77,85,86].includes(c))return{icon:'❄️',text:'Nieve'};if([95,96,99].includes(c))return{icon:'⛈️',text:'Tormenta'};
+  return{icon:'🌡️',text:'Tiempo actual'};
+}
+function formatClock(){
+  const timeEl=$('#localTime'),dateEl=$('#localDate');if(!timeEl||!dateEl)return;
+  const hour12=(config.timeFormat||'12h')!=='24h';const opt={hour:'numeric',minute:'2-digit',hour12};if(userWeatherTimezone)opt.timeZone=userWeatherTimezone;
+  try{timeEl.textContent=new Intl.DateTimeFormat('es-HN',opt).format(new Date())}catch{timeEl.textContent=new Date().toLocaleTimeString('es-HN',{hour:'numeric',minute:'2-digit',hour12})}
+  if(config.showLocalDate===false){dateEl.textContent='';dateEl.style.display='none';return}dateEl.style.display='';
+  const dopt={weekday:'long',day:'numeric',month:'short'};if(userWeatherTimezone)dopt.timeZone=userWeatherTimezone;
+  try{dateEl.textContent=new Intl.DateTimeFormat('es-HN',dopt).format(new Date())}catch{dateEl.textContent=new Date().toLocaleDateString('es-HN',dopt)}
+}
+function setLocationState(title,hint=''){$('#userLocation').textContent=title;$('#locationHint').textContent=hint}
+async function loadLocalWeather(lat,lon){
+  $('#weatherText').textContent='Consultando clima…';$('#weatherDetail').textContent='';
+  try{
+    const r=await fetch(`/api/local-info?lat=${encodeURIComponent(lat)}&lon=${encodeURIComponent(lon)}&unit=${config.temperatureUnit==='fahrenheit'?'fahrenheit':'celsius'}`,{cache:'no-store'});
+    const d=await r.json();if(!r.ok)throw new Error(d.error||'No se pudo obtener el clima');
+    userWeatherTimezone=d.timezone||'';formatClock();const info=weatherCodeInfo(d.weatherCode,d.isDay!==false);$('#weatherIcon').textContent=info.icon;
+    const unit=config.temperatureUnit==='fahrenheit'?'°F':'°C';$('#weatherText').textContent=`${Math.round(Number(d.temperature))}${unit} · ${info.text}`;
+    $('#weatherDetail').textContent=Number.isFinite(Number(d.apparentTemperature))?`Sensación ${Math.round(Number(d.apparentTemperature))}${unit}`:'Clima de tu ubicación';
+    const place=[d.city,d.region].filter(Boolean).filter((x,i,a)=>a.indexOf(x)===i).join(', ')||d.country||'Ubicación detectada';setLocationState(place,d.country&&place!==d.country?d.country:'Ubicación detectada por GPS');
+    try{localStorage.setItem('fg-local-info',JSON.stringify({lat:Number(lat),lon:Number(lon),place,country:d.country||'',timezone:d.timezone||'',savedAt:Date.now()}))}catch{}
+  }catch(e){$('#weatherIcon').textContent='🌡️';$('#weatherText').textContent='Clima no disponible';$('#weatherDetail').textContent='Intenta nuevamente';setLocationState('Ubicación detectada','No se pudo consultar el nombre de la zona')}
+}
+function requestListenerLocation(showToast=false){
+  if(!navigator.geolocation){$('#weatherText').textContent='Ubicación no compatible';setLocationState('No disponible','Tu navegador no ofrece ubicación');return}
+  setLocationState('Detectando…','Esperando permiso');
+  navigator.geolocation.getCurrentPosition(pos=>{loadLocalWeather(pos.coords.latitude,pos.coords.longitude);if(showToast)toast('Ubicación actualizada')},err=>{
+    $('#weatherIcon').textContent='🌡️';$('#weatherText').textContent='Activa tu ubicación';$('#weatherDetail').textContent='Para mostrar el clima de tu zona';
+    const msg=err&&err.code===1?'Permiso de ubicación desactivado':'Toca para volver a intentar';setLocationState('Ubicación no disponible',msg);
+  },{enableHighAccuracy:false,timeout:10000,maximumAge:15*60*1000});
+}
+function startLocalInfo(){
+  clearInterval(clockTimer);clearInterval(weatherRefreshTimer);formatClock();clockTimer=setInterval(formatClock,30000);if(config.showLocalInfo===false)return;
+  let cached=null;try{cached=JSON.parse(localStorage.getItem('fg-local-info')||'null')}catch{}
+  if(cached&&Date.now()-Number(cached.savedAt||0)<6*60*60*1000){userWeatherTimezone=cached.timezone||'';setLocationState(cached.place||'Ubicación guardada',cached.country||'');formatClock();loadLocalWeather(cached.lat,cached.lon)}
+  else if(config.autoUserLocation!==false)requestListenerLocation(false);
+  else{$('#weatherText').textContent='Clima de tu zona';$('#weatherDetail').textContent='Toca ubicación para activar';setLocationState('Usar mi ubicación','Toca para permitir')}
+  weatherRefreshTimer=setInterval(()=>{if(cached&&cached.lat!=null)loadLocalWeather(cached.lat,cached.lon)},20*60*1000);
+}
+$('#locationCard').addEventListener('click',()=>requestListenerLocation(true));
+
+function deriveZenoMetadataUrl(){const explicit=(config.metadataUrl||'').trim();if(explicit)return explicit;try{const u=new URL(config.streamUrl||'');if(!u.hostname.toLowerCase().includes('zeno.fm'))return'';let mount=(u.pathname.split('/').filter(Boolean)[0]||'').replace(/\.(m3u8?|pls)$/i,'');return mount?`https://api.zeno.fm/mounts/metadata/subscribe/${mount}`:''}catch{return''}}
+function splitStreamTitle(raw){const text=String(raw||'').trim();if(!text)return{title:'',artist:''};const parts=text.split(/\s+-\s+/);if(parts.length>1)return{artist:parts.shift().trim(),title:parts.join(' - ').trim()};return{title:text,artist:''}}
+function showMetadata(title,artist,artwork=''){const t=String(title||config.fallbackTitle||'Programación en vivo');const a=String(artist||resolvedFallbackArtist()||config.brandName||'');$('#song').textContent=t;$('#artist').textContent=a;addHistory(t,a,artwork)}
+function parseZenoPayload(data){if(!data||typeof data!=='object')return null;const raw=data.streamTitle??data.stream_title??data.title??data.song??data?.now_playing?.song?.text??'';let title='',artist='';if(data?.now_playing?.song){title=data.now_playing.song.title||'';artist=data.now_playing.song.artist||''}if(!title&&raw){const p=splitStreamTitle(raw);title=p.title;artist=p.artist}const artwork=data.artwork||data.cover||data?.now_playing?.song?.art||'';return title?{title,artist,artwork}:null}
+function stopMetadata(){if(zenoES){zenoES.close();zenoES=null}if(metadataTimer){clearInterval(metadataTimer);metadataTimer=null}}
+async function startMetadata(){stopMetadata();const url=deriveZenoMetadataUrl();if(url&&/api\.zeno\.fm\/mounts\/metadata\/subscribe\//i.test(url)&&'EventSource'in window){
+    try{zenoES=new EventSource(url);zenoES.onmessage=e=>{try{const item=parseZenoPayload(JSON.parse(e.data));if(item)showMetadata(item.title,item.artist,item.artwork)}catch{}};zenoES.onerror=()=>{};return}catch{}
+  }
+  await pollMetadata();metadataTimer=setInterval(pollMetadata,10000)
+}
+async function load(){try{const r=await fetch('/api/config',{cache:'no-store'});applyConfig(await r.json());await resolveStream();await startMetadata()}catch(e){toast('No se pudo cargar la configuración')}}
+async function resolveStream(){const r=await fetch('/api/resolve-stream',{cache:'no-store'});const d=await r.json();$('#audio').src=d.url||''}
+function addHistory(title,artist,artwork){const key=(artist+'|'+title).toLowerCase();if(!title||key===lastTrackKey)return;lastTrackKey=key;history=JSON.parse(localStorage.getItem('fg_radio_history')||'[]');history=history.filter(x=>x.key!==key);history.unshift({key,title,artist,artwork,time:Date.now()});history=history.slice(0,Number(config.historyLimit)||6);localStorage.setItem('fg_radio_history',JSON.stringify(history));renderHistory()}
+function renderHistory(){history=JSON.parse(localStorage.getItem('fg_radio_history')||'[]').slice(0,Number(config.historyLimit)||6);if(!history.length){$('#tracks').innerHTML='<div class="empty">El historial aparecerá cuando cambien los metadatos.</div>';return}$('#tracks').innerHTML=history.map(x=>`<div class="track"><img src="${esc(x.artwork||imgSrc())}" alt=""><div><strong>${esc(x.title)}</strong><small>${esc(x.artist)}</small></div><time>${new Date(x.time).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}</time></div>`).join('')}
+async function pollMetadata(){try{const r=await fetch('/api/metadata',{cache:'no-store'});const d=await r.json();showMetadata(d.title,d.artist,d.artwork)}catch{showMetadata(config.fallbackTitle,resolvedFallbackArtist(),'')}}
+function setDrawer(open){const d=$('#mobileDrawer');d.classList.toggle('open',open);d.setAttribute('aria-hidden',open?'false':'true');document.body.classList.toggle('drawer-open',open)}
+$('#menuBtn').onclick=()=>setDrawer(true);$('#drawerClose').onclick=()=>setDrawer(false);$('#drawerBackdrop').onclick=()=>setDrawer(false);document.querySelectorAll('.drawer-nav a').forEach(a=>a.addEventListener('click',()=>setDrawer(false)));
+const audio=$('#audio'),play=$('#playBtn'),wave=$('#wave');play.onclick=async()=>{if(!audio.src){toast('La transmisión aún no está configurada');return}try{if(audio.paused){await audio.play();play.textContent='Ⅱ';wave.classList.remove('paused')}else{audio.pause();play.textContent='▶';wave.classList.add('paused')}}catch(e){toast('El navegador no pudo reproducir el stream. Usa una URL HTTPS compatible.')}};
+const volumeInput=$('#volume'),volumeRow=$('#volumeRow');
+function paintVolume(value,{animate=false}={}){const v=Math.max(0,Math.min(1,Number(value)||0));volumeInput.style.setProperty('--volume-fill',Math.round(v*100)+'%');$('#volumePct').textContent=Math.round(v*100)+'%';volumeRow.dataset.level=v<=.01?'0':v<.34?'1':v<.67?'2':'3';$('#volumeIcon .speaker').textContent=(audio.muted||v<=.01)?'🔇':v<.45?'🔉':'🔊';if(animate){volumeRow.classList.remove('adjusting');void volumeRow.offsetWidth;volumeRow.classList.add('adjusting');clearTimeout(paintVolume._t);paintVolume._t=setTimeout(()=>volumeRow.classList.remove('adjusting'),480)}}
+volumeInput.addEventListener('input',e=>{audio.muted=false;audio.volume=Number(e.target.value);$('#muteBtn').textContent='◔';paintVolume(audio.volume,{animate:true})});
+audio.volume=.8;paintVolume(audio.volume);
+function toggleMute(){audio.muted=!audio.muted;$('#muteBtn').textContent=audio.muted?'🔇':'◔';paintVolume(audio.volume,{animate:true})}
+$('#muteBtn').onclick=toggleMute;$('#volumeIcon').onclick=toggleMute;audio.addEventListener('pause',()=>{play.textContent='▶';wave.classList.add('paused');document.body.classList.remove('playing')});audio.addEventListener('play',()=>{play.textContent='Ⅱ';wave.classList.remove('paused');document.body.classList.add('playing')});
+let deferredInstallPrompt=null;
+function isStandalone(){return window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone===true}
+function isIos(){return /iphone|ipad|ipod/i.test(navigator.userAgent)}
+function setInstallVisible(show){for(const id of ['installNav','installDrawer']){const el=document.getElementById(id);if(el)el.classList.toggle('hidden',!show)}}
+async function installPwa(e){e?.preventDefault();if(isStandalone()){toast('La app ya está instalada.');return}if(deferredInstallPrompt){deferredInstallPrompt.prompt();const choice=await deferredInstallPrompt.userChoice;deferredInstallPrompt=null;setInstallVisible(false);if(choice?.outcome==='accepted')toast('Instalación iniciada.');return}if(isIos()){toast('En iPhone: abre Compartir y elige “Agregar a pantalla de inicio”.');return}toast('La opción de instalar aparecerá cuando el navegador la habilite.')}
+for(const id of ['installNav','installDrawer']){const el=document.getElementById(id);if(el)el.addEventListener('click',installPwa)}
+window.addEventListener('beforeinstallprompt',(e)=>{e.preventDefault();deferredInstallPrompt=e;if(!isStandalone())setInstallVisible(true)});
+window.addEventListener('appinstalled',()=>{deferredInstallPrompt=null;setInstallVisible(false);toast('App instalada correctamente.')});
+if(isIos()&&!isStandalone())setInstallVisible(true);
+if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js?v=137',{scope:'/'}).catch(()=>{}))}
+if('serviceWorker' in navigator){let swRefreshing=false;navigator.serviceWorker.addEventListener('controllerchange',()=>{if(swRefreshing)return;swRefreshing=true;location.reload()})}
+makeWave();renderHistory();load();
+</script>
+</body></html>
