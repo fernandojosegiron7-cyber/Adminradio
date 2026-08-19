@@ -1,3 +1,7 @@
+
+/* V1.3.8 — Brand First: evita mostrar el nombre de la plantilla antes de cargar la configuración. */
+.brand-loader{position:fixed;inset:0;z-index:9999;display:grid;place-content:center;justify-items:center;gap:14px;background:radial-gradient(circle at 50% 35%,color-mix(in srgb,var(--wave1,#d9a441) 12%,transparent),transparent 34%),#080a10;color:#f7f8ff;text-align:center;transition:opacity .22s ease,visibility .22s ease}.brand-loader strong{font:600 18px/1.2 system-ui,sans-serif;letter-spacing:.02em}.brand-loader small{color:#aeb4c7}.loader-mark{height:44px;display:flex;align-items:center;gap:5px}.loader-mark span{display:block;width:4px;border-radius:999px;background:linear-gradient(180deg,var(--wave1,#d9a441),var(--wave2,#2f80ed));animation:brandLoad .9s ease-in-out infinite}.loader-mark span:nth-child(1),.loader-mark span:nth-child(5){height:18px}.loader-mark span:nth-child(2),.loader-mark span:nth-child(4){height:30px;animation-delay:-.12s}.loader-mark span:nth-child(3){height:42px;animation-delay:-.24s}@keyframes brandLoad{0%,100%{transform:scaleY(.55);opacity:.5}50%{transform:scaleY(1);opacity:1}}body.config-ready .brand-loader{opacity:0;visibility:hidden;pointer-events:none}body.config-loading .shell{visibility:hidden}body.config-error .shell{visibility:hidden}
+
 :root{
   --accent:#ffb703;
   --accent-soft:#ffe59a;

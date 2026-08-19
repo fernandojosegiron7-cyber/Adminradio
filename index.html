@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <title>Radio Elegance FM</title>
+  <title>Radio</title>
   <meta name="theme-color" content="#0b0d0f" />
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -12,13 +12,14 @@
   <link rel="apple-touch-icon" href="/api/icon?size=192" />
   <link rel="manifest" href="/manifest.webmanifest" />
   <link rel="icon" href="/api/icon" />
-  <link rel="stylesheet" href="/styles.css?v=137" />
+  <link rel="stylesheet" href="/styles.css?v=138" />
 </head>
-<body>
+<body class="config-loading">
+  <div class="brand-loader" id="brandLoader" role="status" aria-live="polite"><div class="loader-mark"><span></span><span></span><span></span><span></span><span></span></div><strong>Cargando radio…</strong></div>
   <div class="page-bg"></div><div class="background-photo" id="backgroundPhoto"></div>
   <div class="shell">
     <aside class="sidebar glass">
-      <div class="brand-mini"><img id="miniLogo" src="/assets/logo-placeholder.svg" alt="Logo"><div><strong id="miniName">Radio Elegance FM</strong><small id="miniTag">Música que te acompaña</small></div></div>
+      <div class="brand-mini"><img id="miniLogo" src="/assets/logo-placeholder.svg" alt="Logo"><div><strong id="miniName"></strong><small id="miniTag"></small></div></div>
       <nav class="nav">
         <a class="active" href="#inicio"><span class="ico">⌂</span>Inicio</a>
         <a href="#historial"><span class="ico">↶</span>Historial</a>
@@ -36,7 +37,7 @@
         <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
           <div class="drawer-backdrop" id="drawerBackdrop"></div>
           <div class="drawer-panel glass">
-            <div class="drawer-head"><div class="brand-mini"><img id="drawerLogo" src="/assets/logo-placeholder.svg" alt="Logo"><div><strong id="drawerName">Radio Elegance FM</strong><small id="drawerTag">Música que te acompaña</small></div></div><button id="drawerClose" class="drawer-close" aria-label="Cerrar menú">×</button></div>
+            <div class="drawer-head"><div class="brand-mini"><img id="drawerLogo" src="/assets/logo-placeholder.svg" alt="Logo"><div><strong id="drawerName"></strong><small id="drawerTag"></small></div></div><button id="drawerClose" class="drawer-close" aria-label="Cerrar menú">×</button></div>
             <nav class="nav drawer-nav">
               <a class="active" href="#inicio"><span class="ico">⌂</span>Inicio</a>
               <a href="#historial"><span class="ico">↶</span>Historial</a>
@@ -48,15 +49,15 @@
             <div class="credit" id="drawerCredit">Diseñado por FG Media Studios</div>
           </div>
         </div>
-        <div class="topline"><div style="text-align:left"><div class="station-title" id="stationTitle">Radio Elegance FM</div><div class="tagline" id="tagline">Música que te acompaña</div></div><div class="live"><i></i><span id="liveLabel">EN VIVO</span></div></div>
+        <div class="topline"><div style="text-align:left"><div class="station-title" id="stationTitle"></div><div class="tagline" id="tagline"></div></div><div class="live"><i></i><span id="liveLabel">EN VIVO</span></div></div>
         <div class="visual" aria-label="Visualizador animado">
           <div class="wave paused" id="wave"></div>
           <div class="ring r1"></div><div class="ring r2"></div><div class="ring r3"></div>
           <div class="logo-wrap"><div><img id="mainLogo" class="placeholder" src="/assets/logo-placeholder.svg" alt="Logo de la radio"></div></div>
         </div>
         <div class="now-block"><div class="now-label">Ahora suena</div>
-        <div class="song" id="song">Programación en vivo</div>
-        <div class="artist" id="artist">Radio Elegance FM</div></div>
+        <div class="song" id="song">Cargando transmisión…</div>
+        <div class="artist" id="artist"></div></div>
         <div class="controls">
           <button class="round" id="muteBtn" aria-label="Silenciar">◔</button>
           <button class="play" id="playBtn" aria-label="Reproducir">▶</button>
@@ -112,8 +113,8 @@ function applyLogoAnimation(c){
   document.body.dataset.logoAnimation=mode;
 }
 function imgSrc(){return config.logoData||'/assets/logo-placeholder.svg'}
-function resolvedFallbackArtist(){const v=(config.fallbackArtist||'').trim();return !v||v==='Radio Elegance FM'?config.brandName:v}
-function applyConfig(c){config=c;setCss(c);applyLogoAnimation(c);document.title=c.brandName||'Radio';document.querySelector('meta[name="theme-color"]').content=c.themeColor||'#0b0d0f';const appleTitle=document.querySelector('meta[name="apple-mobile-web-app-title"]');if(appleTitle)appleTitle.content=c.pwaShortName||c.brandName||'Radio';
+function resolvedFallbackArtist(){const v=(config.fallbackArtist||'').trim();return v||config.brandName||''}
+function applyConfig(c){config=c;setCss(c);applyLogoAnimation(c);document.body.classList.remove('config-loading');document.body.classList.add('config-ready');const loader=document.getElementById('brandLoader');if(loader)loader.setAttribute('aria-hidden','true');document.title=c.brandName||'Radio';document.querySelector('meta[name="theme-color"]').content=c.themeColor||'#0b0d0f';const appleTitle=document.querySelector('meta[name="apple-mobile-web-app-title"]');if(appleTitle)appleTitle.content=c.pwaShortName||c.brandName||'Radio';
   ['mainLogo','miniLogo','mobileLogo','drawerLogo'].forEach(id=>{const el=document.getElementById(id);if(!el)return;el.src=imgSrc();el.classList.toggle('placeholder',!c.logoData)});
   $('#stationTitle').textContent=c.brandName||'Radio';$('#miniName').textContent=c.brandName||'Radio';$('#drawerName').textContent=c.brandName||'Radio';$('#tagline').textContent=c.tagline||'';$('#miniTag').textContent=c.tagline||'';$('#drawerTag').textContent=c.tagline||'';$('#liveLabel').textContent=c.liveLabel||'EN VIVO';
   $('#localInfo').style.display=c.showLocalInfo===false?'none':'';
@@ -202,7 +203,34 @@ async function startMetadata(){stopMetadata();const url=deriveZenoMetadataUrl();
   }
   await pollMetadata();metadataTimer=setInterval(pollMetadata,10000)
 }
-async function load(){try{const r=await fetch('/api/config',{cache:'no-store'});applyConfig(await r.json());await resolveStream();await startMetadata()}catch(e){toast('No se pudo cargar la configuración')}}
+async function load(){
+  let hadCached=false;
+  try{
+    const cached=JSON.parse(localStorage.getItem('fg-public-config-v138')||'null');
+    if(cached&&cached.brandName){applyConfig(cached);hadCached=true}
+  }catch{}
+  try{
+    const r=await fetch('/api/config',{cache:'no-store'});
+    if(!r.ok)throw new Error('config');
+    const fresh=await r.json();
+    delete fresh._storage;
+    applyConfig(fresh);
+    try{localStorage.setItem('fg-public-config-v138',JSON.stringify(fresh))}catch{}
+    await resolveStream();
+    await startMetadata();
+  }catch(e){
+    if(!hadCached){
+      document.body.classList.remove('config-loading');
+      document.body.classList.add('config-error');
+      const loader=document.getElementById('brandLoader');
+      if(loader){loader.innerHTML='<strong>No se pudo cargar la radio</strong><small>Revisa la conexión y vuelve a intentar.</small>'}
+    }else{
+      await resolveStream().catch(()=>{});
+      await startMetadata().catch(()=>{});
+      toast('Usando la última configuración guardada');
+    }
+  }
+}
 async function resolveStream(){const r=await fetch('/api/resolve-stream',{cache:'no-store'});const d=await r.json();$('#audio').src=d.url||''}
 function addHistory(title,artist,artwork){const key=(artist+'|'+title).toLowerCase();if(!title||key===lastTrackKey)return;lastTrackKey=key;history=JSON.parse(localStorage.getItem('fg_radio_history')||'[]');history=history.filter(x=>x.key!==key);history.unshift({key,title,artist,artwork,time:Date.now()});history=history.slice(0,Number(config.historyLimit)||6);localStorage.setItem('fg_radio_history',JSON.stringify(history));renderHistory()}
 function renderHistory(){history=JSON.parse(localStorage.getItem('fg_radio_history')||'[]').slice(0,Number(config.historyLimit)||6);if(!history.length){$('#tracks').innerHTML='<div class="empty">El historial aparecerá cuando cambien los metadatos.</div>';return}$('#tracks').innerHTML=history.map(x=>`<div class="track"><img src="${esc(x.artwork||imgSrc())}" alt=""><div><strong>${esc(x.title)}</strong><small>${esc(x.artist)}</small></div><time>${new Date(x.time).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}</time></div>`).join('')}
@@ -225,7 +253,7 @@ for(const id of ['installNav','installDrawer']){const el=document.getElementById
 window.addEventListener('beforeinstallprompt',(e)=>{e.preventDefault();deferredInstallPrompt=e;if(!isStandalone())setInstallVisible(true)});
 window.addEventListener('appinstalled',()=>{deferredInstallPrompt=null;setInstallVisible(false);toast('App instalada correctamente.')});
 if(isIos()&&!isStandalone())setInstallVisible(true);
-if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js?v=137',{scope:'/'}).catch(()=>{}))}
+if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js?v=138',{scope:'/'}).catch(()=>{}))}
 if('serviceWorker' in navigator){let swRefreshing=false;navigator.serviceWorker.addEventListener('controllerchange',()=>{if(swRefreshing)return;swRefreshing=true;location.reload()})}
 makeWave();renderHistory();load();
 </script>
