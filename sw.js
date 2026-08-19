@@ -1,5 +1,5 @@
-const CACHE_NAME = 'fg-radio-pwa-v138';
-const APP_SHELL = ['/', '/styles.css?v=138', '/assets/logo-placeholder.svg', '/offline.html'];
+const CACHE_NAME = 'fg-radio-pwa-v140';
+const APP_SHELL = ['/', '/styles.css?v=140', '/assets/logo-placeholder.svg', '/offline.html'];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_SHELL)));

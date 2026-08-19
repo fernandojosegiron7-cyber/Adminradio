@@ -1,8 +1,8 @@
-# FG Radio Player V1.3.8 — Brand First + PWA completa
+# FG Radio Player V1.4.0 — Brand First + PWA completa
 
 Versión marca blanca del reproductor de radio para Vercel con diseño elegante de **2 colores editables**, panel `/admin` privado, Vercel Blob y PWA instalable.
 
-## Novedades V1.3.8
+## Novedades V1.4.0
 
 - Se eliminó el movimiento ambiental del fondo, título, anillos, logo, tarjetas e historial.
 - Solo se mueven las **ondas de audio** y el punto de **EN VIVO**.
@@ -41,7 +41,7 @@ Versión marca blanca del reproductor de radio para Vercel con diseño elegante 
 > Nota: una PWA puede abrir su interfaz sin conexión si ya fue cacheada, pero el audio en vivo y los metadatos necesitan internet.
 
 
-## Novedades V1.3.8
+## Novedades V1.4.0
 - Logo con animación administrable: Elegante, Pulso, Flotante, Brillo o Ninguna.
 - Intensidad del movimiento del logo configurable desde `/admin`.
 - La opción predeterminada es **Elegante**, con respiración suave + halo + destello discreto.
@@ -49,11 +49,11 @@ Versión marca blanca del reproductor de radio para Vercel con diseño elegante 
 - El resto de la interfaz continúa estable: no se mueve el fondo ni las tarjetas.
 
 
-## V1.3.8 — Iconos sociales
+## V1.4.0 — Iconos sociales
 El reproductor muestra iconos SVG profesionales para Facebook, Instagram, TikTok, YouTube, WhatsApp y sitio web. Solo aparecen los iconos cuyo enlace esté configurado en `/admin` → Redes. Los iconos usan los dos colores editables del diseño.
 
 
-## V1.3.8 — Menú PWA + tamaño del nombre
+## V1.4.0 — Menú PWA + tamaño del nombre
 - Corrige el caché antiguo del Service Worker que podía dejar una versión vieja al instalar la PWA.
 - El menú ☰ queda visible en móvil y en modo PWA instalado.
 - Respeta las áreas seguras de iPhone.
@@ -64,7 +64,7 @@ El reproductor muestra iconos SVG profesionales para Facebook, Instagram, TikTok
 
 ## Clima, hora y ubicación del oyente
 
-La V1.3.8 reemplaza las tarjetas de Calidad / Ubicación / Estado por tres módulos: clima actual, hora/fecha local y ubicación aproximada del oyente. El navegador solicita permiso de ubicación. Si el usuario lo rechaza, el reproductor sigue funcionando normalmente y puede volver a intentarlo tocando la tarjeta de ubicación.
+La V1.4.0 reemplaza las tarjetas de Calidad / Ubicación / Estado por tres módulos: clima actual, hora/fecha local y ubicación aproximada del oyente. El navegador solicita permiso de ubicación. Si el usuario lo rechaza, el reproductor sigue funcionando normalmente y puede volver a intentarlo tocando la tarjeta de ubicación.
 
 - El clima se obtiene según las coordenadas del dispositivo.
 - La hora usa la zona horaria detectada para esas coordenadas.
@@ -72,9 +72,26 @@ La V1.3.8 reemplaza las tarjetas de Calidad / Ubicación / Estado por tres módu
 - Desde `/admin → Extras` puedes activar/desactivar el módulo, elegir 12/24 h, °C/°F y mostrar/ocultar la fecha.
 
 
-## V1.3.8 — Brand First
+## V1.4.0 — Brand First
 - Ya no muestra **Radio Elegance FM** mientras carga.
 - En la primera apertura aparece un cargador neutro **Cargando radio…**.
 - Después de la primera carga se guarda una copia local de la configuración pública para mostrar la marca del cliente inmediatamente en las siguientes aperturas.
 - Migra automáticamente valores antiguos de `Radio Elegance FM` / `Elegance FM` al nombre configurado cuando corresponde.
 - El nombre de la PWA, artista de respaldo, título de la pestaña y cabeceras se actualizan desde la configuración guardada.
+
+
+## V1.4.0 — Metadatos en scroll
+- El bloque grande de canción/artista fue reemplazado por una franja horizontal profesional.
+- Muestra artista — canción en movimiento continuo.
+- Usa los dos colores configurables del reproductor.
+- Desde /admin > Audio puedes activar/desactivar el scroll, cambiar su velocidad y el tamaño del texto.
+- En móvil/PWA se adapta a una franja compacta.
+
+
+## V1.4.0 — reproductor compacto + redes bajo demanda
+
+- El reproductor público es más compacto en PC y se adapta mejor a laptop, tablet y móvil.
+- Desde **/admin → Diseño** puedes cambiar el tamaño del reproductor por separado para PC y móvil/PWA.
+- Los iconos de redes ya no quedan visibles permanentemente al pie del menú.
+- Al pulsar **Redes** se abre un panel elegante con Facebook, Instagram, TikTok, YouTube, WhatsApp y sitio web. Solo aparecen las redes que tengan enlace configurado.
+- Se mantiene PWA, metadata en scroll, clima/ubicación del oyente, historial, logo animado y los dos colores editables.
