@@ -12,7 +12,7 @@
   <link rel="apple-touch-icon" href="/api/icon?size=192" />
   <link rel="manifest" href="/manifest.webmanifest" />
   <link rel="icon" href="/api/icon" />
-  <link rel="stylesheet" href="/styles.css?v=140" />
+  <link rel="stylesheet" href="/styles.css?v=144" />
 </head>
 <body class="config-loading">
   <div class="brand-loader" id="brandLoader" role="status" aria-live="polite"><div class="loader-mark"><span></span><span></span><span></span><span></span><span></span></div><strong>Cargando radio…</strong></div>
@@ -25,6 +25,7 @@
         <a href="#historial"><span class="ico">↶</span>Historial</a>
         <a id="navRequest" href="#"><span class="ico">♫</span><span id="requestLabelSide">Pedir canción</span></a>
         <a href="#" id="navSocialsTrigger"><span class="ico">◇</span>Redes</a>
+        <a href="#" id="navAmbientTrigger"><span class="ico">◉</span>Modo ambiente</a>
         <a id="installNav" class="install-link hidden" href="#"><span class="ico">⇩</span>Instalar app</a>
       </nav>
       <div class="credit" id="credit">Diseñado por FG Media Studios</div>
@@ -32,7 +33,25 @@
 
     <main class="main" id="inicio">
       <section class="player">
-        <div class="mobile-head"><button class="menu-btn" id="menuBtn" aria-label="Abrir menú">☰</button><img id="mobileLogo" src="/assets/logo-placeholder.svg" alt="Logo"><span class="mobile-head-spacer" aria-hidden="true"></span></div>
+        <div class="top-utility">
+          <div class="mobile-head"><button class="menu-btn" id="menuBtn" aria-label="Abrir menú">☰</button><span class="mobile-head-spacer" aria-hidden="true"></span></div>
+          <div class="local-info" id="localInfo" aria-label="Clima, hora y ubicación del oyente">
+            <div class="local-strip weather-segment">
+              <span class="local-icon" id="weatherIcon" aria-hidden="true">☀️</span>
+              <span class="local-copy"><small>Clima</small><strong id="weatherText">Detectando…</strong><em id="weatherDetail">Permite ubicación</em></span>
+            </div>
+            <div class="local-divider" aria-hidden="true"></div>
+            <div class="local-strip time-segment">
+              <span class="local-icon" aria-hidden="true">🕐</span>
+              <span class="local-copy"><small>Hora</small><strong id="localTime">--:--</strong><em id="localDate">Hora local</em></span>
+            </div>
+            <div class="local-divider" aria-hidden="true"></div>
+            <button class="local-strip location-segment" id="locationCard" type="button" aria-label="Usar mi ubicación">
+              <span class="local-icon" aria-hidden="true">📍</span>
+              <span class="local-copy"><small>Ubicación</small><strong id="userLocation">Sin detectar</strong><em id="locationHint">Toca para permitir</em></span>
+            </button>
+          </div>
+        </div>
         <div class="mobile-drawer" id="mobileDrawer" aria-hidden="true">
           <div class="drawer-backdrop" id="drawerBackdrop"></div>
           <div class="drawer-panel glass">
@@ -42,16 +61,17 @@
               <a href="#historial"><span class="ico">↶</span>Historial</a>
               <a id="drawerRequest" href="#"><span class="ico">♫</span><span id="requestLabelDrawer">Pedir canción</span></a>
               <a href="#" id="drawerSocialsTrigger"><span class="ico">◇</span>Redes</a>
+              <a href="#" id="drawerAmbientTrigger"><span class="ico">◉</span>Modo ambiente</a>
               <a id="installDrawer" class="install-link hidden" href="#"><span class="ico">⇩</span>Instalar app</a>
             </nav>
             <div class="credit" id="drawerCredit">Diseñado por FG Media Studios</div>
           </div>
         </div>
-        <div class="topline"><div style="text-align:left"><div class="station-title" id="stationTitle"></div><div class="tagline" id="tagline"></div></div><div class="live"><i></i><span id="liveLabel">EN VIVO</span></div></div>
+        <div class="topline"><div style="text-align:left"><div class="station-title" id="stationTitle"></div><div class="tagline" id="tagline"></div></div><div class="live"><i></i><span id="liveLabel">EN VIVO</span><span class="live-eq" id="liveEq" aria-hidden="true"><b></b><b></b><b></b><b></b><b></b></span></div></div>
         <div class="visual" aria-label="Visualizador animado">
           <div class="wave paused" id="wave"></div>
           <div class="ring r1"></div><div class="ring r2"></div><div class="ring r3"></div>
-          <div class="logo-wrap"><div><img id="mainLogo" class="placeholder" src="/assets/logo-placeholder.svg" alt="Logo de la radio"></div></div>
+          <div class="logo-wrap" id="logoAmbientTrigger" role="button" tabindex="0" aria-label="Abrir modo ambiente"><div><img id="mainLogo" class="placeholder" src="/assets/logo-placeholder.svg" alt="Logo de la radio"></div></div>
         </div>
         <div class="metadata-ticker" id="metadataTicker" aria-label="Metadatos de la canción actual">
           <div class="ticker-badge"><i></i><span>AHORA SUENA</span></div>
@@ -61,7 +81,7 @@
           <span class="sr-only" id="metadataLive" aria-live="polite">Cargando transmisión…</span>
         </div>
         <div class="controls">
-          <button class="round" id="muteBtn" aria-label="Silenciar">◔</button>
+          <button class="round volume-toggle" id="muteBtn" aria-label="Abrir control de volumen" aria-expanded="false">🔊</button>
           <button class="play" id="playBtn" aria-label="Reproducir">▶</button>
           <button class="round" id="requestBtn" aria-label="Pedir canción">♫</button>
         </div>
@@ -75,20 +95,6 @@
           </div>
           <span id="volumePct" class="volume-pct">80%</span>
         </div>
-        <div class="local-info" id="localInfo">
-          <div class="local-card weather-card">
-            <span class="local-icon" id="weatherIcon" aria-hidden="true">☀️</span>
-            <div><small>Clima en tu zona</small><strong id="weatherText">Detectando ubicación…</strong><em id="weatherDetail">Permite ubicación para ver el clima</em></div>
-          </div>
-          <div class="local-card time-card">
-            <span class="local-icon" aria-hidden="true">🕐</span>
-            <div><small>Hora local</small><strong id="localTime">--:--</strong><em id="localDate">Tu hora actual</em></div>
-          </div>
-          <button class="local-card location-card" id="locationCard" type="button" aria-label="Usar mi ubicación">
-            <span class="local-icon" aria-hidden="true">📍</span>
-            <span><small>Tu ubicación</small><strong id="userLocation">Ubicación no detectada</strong><em id="locationHint">Toca para permitir ubicación</em></span>
-          </button>
-        </div>
         <audio id="audio" preload="none" playsinline></audio>
       </section>
     </main>
@@ -98,6 +104,23 @@
       <div class="tracks" id="tracks"><div class="empty">El historial aparecerá cuando cambien los metadatos.</div></div>
       <a class="request-btn" id="requestLink" href="#">Pedir canción</a>
     </aside>
+  </div>
+
+  <div class="ambient-mode" id="ambientMode" aria-hidden="true">
+    <button class="ambient-backdrop" id="ambientBackdrop" type="button" aria-label="Cerrar modo ambiente"></button>
+    <section class="ambient-stage" role="dialog" aria-modal="true" aria-labelledby="ambientStationName">
+      <button class="ambient-close" id="ambientClose" type="button" aria-label="Cerrar modo ambiente">×</button>
+      <div class="ambient-kicker"><span class="ambient-live-dot"></span><span id="ambientLiveLabel">EN VIVO</span></div>
+      <div class="ambient-logo-shell">
+        <div class="ambient-wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <img id="ambientLogo" src="/assets/logo-placeholder.svg" alt="Logo de la radio">
+      </div>
+      <h2 id="ambientStationName">Radio</h2>
+      <p id="ambientTagline"></p>
+      <div class="ambient-now"><small>AHORA SUENA</small><strong id="ambientTitle">Programación en vivo</strong><span id="ambientArtist"></span></div>
+      <button class="ambient-play" id="ambientPlay" type="button" aria-label="Reproducir o pausar">▶</button>
+      <div class="ambient-hint">Toca × para volver al reproductor</div>
+    </section>
   </div>
   <div class="social-modal" id="socialModal" aria-hidden="true">
     <button class="social-backdrop" id="socialBackdrop" type="button" aria-label="Cerrar redes sociales"></button>
@@ -114,7 +137,15 @@
 const $=s=>document.querySelector(s);let config={},lastTrackKey='',history=[],zenoES=null,metadataTimer=null,clockTimer=null,weatherRefreshTimer=null,userWeatherTimezone='';
 function esc(s){return String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
 function makeWave(){const w=$('#wave');w.innerHTML='';for(let i=0;i<84;i++){const b=document.createElement('span');const center=1-Math.abs(i-42)/42;b.style.height=(8+center*76*(.35+Math.random()*.65))+'px';b.style.animationDelay=(-Math.random()*1.1)+'s';w.appendChild(b)}}
-function setCss(c){const r=document.documentElement.style;const w1=c.waveColor1||c.accent||'#d9a441',w2=c.waveColor2||'#2f80ed';const desktop=Math.max(24,Math.min(72,Number(c.stationTitleSizeDesktop??52)||52));const mobile=Math.max(18,Math.min(46,Number(c.stationTitleSizeMobile??30)||30));const visualDesktop=Math.max(280,Math.min(520,Number(c.playerVisualSizeDesktop??390)||390));const visualMobile=Math.max(260,Math.min(390,Number(c.playerVisualSizeMobile??320)||320));const tickerSize=Math.max(12,Math.min(28,Number(c.metadataTickerSize??17)||17));const tickerSpeed=Math.max(8,Math.min(40,Number(c.metadataTickerSpeed??18)||18));r.setProperty('--player-visual-desktop',visualDesktop+'px');r.setProperty('--player-visual-mobile',visualMobile+'px');r.setProperty('--wave1',w1);r.setProperty('--wave2',w2);r.setProperty('--accent',w1);r.setProperty('--accent-soft',c.accentSoft||'#f3dfb2');r.setProperty('--panel',c.panel||'#111424');r.setProperty('--text',c.text||'#f7f8ff');r.setProperty('--muted',c.muted||'#aeb4c7');r.setProperty('--station-title-desktop',desktop+'px');r.setProperty('--station-title-mobile',mobile+'px');r.setProperty('--ticker-size',tickerSize+'px');r.setProperty('--ticker-speed',tickerSpeed+'s');document.body.classList.toggle('hide-station-title-mobile',c.showStationTitleMobile===false);}
+function setCss(c){const r=document.documentElement.style;const w1=c.waveColor1||c.accent||'#d9a441',w2=c.waveColor2||'#2f80ed';const desktop=Math.max(24,Math.min(72,Number(c.stationTitleSizeDesktop??52)||52));const mobile=Math.max(18,Math.min(46,Number(c.stationTitleSizeMobile??30)||30));const visualDesktop=Math.max(280,Math.min(520,Number(c.playerVisualSizeDesktop??390)||390));const visualMobile=Math.max(260,Math.min(390,Number(c.playerVisualSizeMobile??320)||320));const tickerSize=Math.max(12,Math.min(28,Number(c.metadataTickerSize??17)||17));const tickerSpeed=Math.max(8,Math.min(40,Number(c.metadataTickerSpeed??18)||18));r.setProperty('--player-visual-desktop',visualDesktop+'px');r.setProperty('--player-visual-mobile',visualMobile+'px');r.setProperty('--wave1',w1);r.setProperty('--wave2',w2);r.setProperty('--accent',w1);r.setProperty('--accent-soft',c.accentSoft||'#f3dfb2');r.setProperty('--panel',c.panel||'#111424');r.setProperty('--text',c.text||'#f7f8ff');r.setProperty('--muted',c.muted||'#aeb4c7');r.setProperty('--station-title-desktop',desktop+'px');r.setProperty('--station-title-mobile',mobile+'px');r.setProperty('--ticker-size',tickerSize+'px');r.setProperty('--ticker-speed',tickerSpeed+'s');
+  const bgBlur=Math.max(0,Math.min(30,Number(c.backgroundBlur??8)||0));
+  const bgDim=Math.max(0,Math.min(90,Number(c.backgroundDim??54)||0));
+  const logoGlow=Math.max(0,Math.min(100,Number(c.logoGlow??58)||0));
+  r.setProperty('--bg-photo-blur',bgBlur+'px');r.setProperty('--bg-dim',(bgDim/100).toFixed(2));r.setProperty('--logo-glow-strength',(logoGlow/100).toFixed(2));r.setProperty('--logo-glow-size1',(36+logoGlow*.38).toFixed(1)+'px');r.setProperty('--logo-glow-size2',(58+logoGlow*.58).toFixed(1)+'px');r.setProperty('--logo-glow-c1',(12+logoGlow*.24).toFixed(1)+'%');r.setProperty('--logo-glow-c2',(8+logoGlow*.20).toFixed(1)+'%');
+  document.body.dataset.theme=['elegant','dark','light','soft-neon','minimal'].includes(c.themePreset)?c.themePreset:'elegant';
+  document.body.dataset.motion=['none','soft','normal'].includes(c.motionLevel)?c.motionLevel:'soft';
+  document.body.classList.toggle('smart-background',c.smartBackground!==false);
+  document.body.classList.toggle('hide-station-title-mobile',c.showStationTitleMobile===false);}
 function applyLogoAnimation(c){
   const mode=['none','elegant','pulse','float','shine'].includes(c.logoAnimation)?c.logoAnimation:'elegant';
   const intensity=Math.max(0,Math.min(100,Number(c.logoAnimationIntensity??38)));
@@ -128,12 +159,17 @@ function applyLogoAnimation(c){
 function imgSrc(){return config.logoData||'/assets/logo-placeholder.svg'}
 function resolvedFallbackArtist(){const v=(config.fallbackArtist||'').trim();return v||config.brandName||''}
 function applyConfig(c){config=c;setCss(c);applyLogoAnimation(c);document.body.classList.remove('config-loading');document.body.classList.add('config-ready');const loader=document.getElementById('brandLoader');if(loader)loader.setAttribute('aria-hidden','true');document.title=c.brandName||'Radio';document.querySelector('meta[name="theme-color"]').content=c.themeColor||'#0b0d0f';const appleTitle=document.querySelector('meta[name="apple-mobile-web-app-title"]');if(appleTitle)appleTitle.content=c.pwaShortName||c.brandName||'Radio';
-  ['mainLogo','miniLogo','mobileLogo','drawerLogo'].forEach(id=>{const el=document.getElementById(id);if(!el)return;el.src=imgSrc();el.classList.toggle('placeholder',!c.logoData)});
+  ['mainLogo','miniLogo','drawerLogo'].forEach(id=>{const el=document.getElementById(id);if(!el)return;el.src=imgSrc();el.classList.toggle('placeholder',!c.logoData)});
   $('#stationTitle').textContent=c.brandName||'Radio';$('#miniName').textContent=c.brandName||'Radio';$('#drawerName').textContent=c.brandName||'Radio';$('#tagline').textContent=c.tagline||'';$('#miniTag').textContent=c.tagline||'';$('#drawerTag').textContent=c.tagline||'';$('#liveLabel').textContent=c.liveLabel||'EN VIVO';
   $('#localInfo').style.display=c.showLocalInfo===false?'none':'';
   $('#metadataTicker').style.display=c.showMetadataTicker===false?'none':'';
   for(const id of ['credit','drawerCredit']){const el=document.getElementById(id);el.textContent=c.developerCredit||'';el.style.display=c.showDeveloperCredit?'block':'none'}
   $('#backgroundPhoto').style.backgroundImage=c.backgroundData?`url(${c.backgroundData})`:'none';
+  const ambientLogo=$('#ambientLogo');if(ambientLogo)ambientLogo.src=imgSrc();
+  if($('#ambientStationName'))$('#ambientStationName').textContent=c.brandName||'Radio';if($('#ambientTagline'))$('#ambientTagline').textContent=c.tagline||'';if($('#ambientLiveLabel'))$('#ambientLiveLabel').textContent=c.liveLabel||'EN VIVO';
+  if($('#liveEq'))$('#liveEq').style.display=c.showEqualizer===false?'none':'';
+  for(const id of ['navAmbientTrigger','drawerAmbientTrigger']){const el=document.getElementById(id);if(el)el.style.display=c.showAmbientMode===false?'none':''}
+  const logoTrigger=$('#logoAmbientTrigger');if(logoTrigger){logoTrigger.classList.toggle('ambient-disabled',c.showAmbientMode===false);logoTrigger.setAttribute('aria-disabled',c.showAmbientMode===false?'true':'false')}
   $('#requestLabelSide').textContent=c.requestLabel||'Pedir canción';$('#requestLabelDrawer').textContent=c.requestLabel||'Pedir canción';$('#requestLink').textContent=c.requestLabel||'Pedir canción';
   for(const el of [$('#requestBtn'),$('#requestLink'),$('#navRequest'),$('#drawerRequest')]){if(c.requestUrl){el.onclick=null;el.href=c.requestUrl;el.target='_blank'}else{el.onclick=(e)=>{e.preventDefault();toast('El enlace de solicitudes aún no está configurado')}}}
   buildSocials();$('#historial').style.display=c.showHistory===false?'none':'';startLocalInfo();
@@ -212,7 +248,13 @@ $('#locationCard').addEventListener('click',()=>requestListenerLocation(true));
 
 function deriveZenoMetadataUrl(){const explicit=(config.metadataUrl||'').trim();if(explicit)return explicit;try{const u=new URL(config.streamUrl||'');if(!u.hostname.toLowerCase().includes('zeno.fm'))return'';let mount=(u.pathname.split('/').filter(Boolean)[0]||'').replace(/\.(m3u8?|pls)$/i,'');return mount?`https://api.zeno.fm/mounts/metadata/subscribe/${mount}`:''}catch{return''}}
 function splitStreamTitle(raw){const text=String(raw||'').trim();if(!text)return{title:'',artist:''};const parts=text.split(/\s+-\s+/);if(parts.length>1)return{artist:parts.shift().trim(),title:parts.join(' - ').trim()};return{title:text,artist:''}}
-function showMetadata(title,artist,artwork=''){const t=String(title||config.fallbackTitle||'Programación en vivo').trim();const a=String(artist||resolvedFallbackArtist()||config.brandName||'').trim();const item=a?`<span class="ticker-artist">${esc(a)}</span><span class="ticker-sep">—</span><strong>${esc(t)}</strong>`:`<strong>${esc(t)}</strong>`;const unit=`<span class="ticker-item">${item}<span class="ticker-dot">✦</span></span>`;const track=$('#metadataTrack');track.innerHTML=unit+unit.replace('class="ticker-item"','class="ticker-item" aria-hidden="true"');track.style.animation='none';void track.offsetWidth;track.style.animation='';$('#metadataLive').textContent=(a?a+' — ':'')+t;addHistory(t,a,artwork)}
+function showMetadata(title,artist,artwork=''){
+  const t=String(title||config.fallbackTitle||'Programación en vivo').trim();const a=String(artist||resolvedFallbackArtist()||config.brandName||'').trim();
+  const item=a?`<span class="ticker-artist">${esc(a)}</span><span class="ticker-sep">—</span><strong>${esc(t)}</strong>`:`<strong>${esc(t)}</strong>`;const unit=`<span class="ticker-item">${item}<span class="ticker-dot">✦</span></span>`;
+  const track=$('#metadataTrack');track.classList.add('meta-changing');
+  setTimeout(()=>{track.innerHTML=unit+unit.replace('class="ticker-item"','class="ticker-item" aria-hidden="true"');track.style.animation='none';void track.offsetWidth;track.style.animation='';requestAnimationFrame(()=>track.classList.remove('meta-changing'))},90);
+  $('#metadataLive').textContent=(a?a+' — ':'')+t;if($('#ambientTitle'))$('#ambientTitle').textContent=t;if($('#ambientArtist'))$('#ambientArtist').textContent=a;addHistory(t,a,artwork)
+}
 function parseZenoPayload(data){if(!data||typeof data!=='object')return null;const raw=data.streamTitle??data.stream_title??data.title??data.song??data?.now_playing?.song?.text??'';let title='',artist='';if(data?.now_playing?.song){title=data.now_playing.song.title||'';artist=data.now_playing.song.artist||''}if(!title&&raw){const p=splitStreamTitle(raw);title=p.title;artist=p.artist}const artwork=data.artwork||data.cover||data?.now_playing?.song?.art||'';return title?{title,artist,artwork}:null}
 function stopMetadata(){if(zenoES){zenoES.close();zenoES=null}if(metadataTimer){clearInterval(metadataTimer);metadataTimer=null}}
 async function startMetadata(){stopMetadata();const url=deriveZenoMetadataUrl();if(url&&/api\.zeno\.fm\/mounts\/metadata\/subscribe\//i.test(url)&&'EventSource'in window){
@@ -223,7 +265,7 @@ async function startMetadata(){stopMetadata();const url=deriveZenoMetadataUrl();
 async function load(){
   let hadCached=false;
   try{
-    const cached=JSON.parse(localStorage.getItem('fg-public-config-v140')||'null');
+    const cached=JSON.parse(localStorage.getItem('fg-public-config-v144')||'null');
     if(cached&&cached.brandName){applyConfig(cached);hadCached=true}
   }catch{}
   try{
@@ -232,7 +274,7 @@ async function load(){
     const fresh=await r.json();
     delete fresh._storage;
     applyConfig(fresh);
-    try{localStorage.setItem('fg-public-config-v140',JSON.stringify(fresh))}catch{}
+    try{localStorage.setItem('fg-public-config-v144',JSON.stringify(fresh))}catch{}
     await resolveStream();
     await startMetadata();
   }catch(e){
@@ -250,17 +292,25 @@ async function load(){
 }
 async function resolveStream(){const r=await fetch('/api/resolve-stream',{cache:'no-store'});const d=await r.json();$('#audio').src=d.url||''}
 function addHistory(title,artist,artwork){const key=(artist+'|'+title).toLowerCase();if(!title||key===lastTrackKey)return;lastTrackKey=key;history=JSON.parse(localStorage.getItem('fg_radio_history')||'[]');history=history.filter(x=>x.key!==key);history.unshift({key,title,artist,artwork,time:Date.now()});history=history.slice(0,Number(config.historyLimit)||6);localStorage.setItem('fg_radio_history',JSON.stringify(history));renderHistory()}
-function renderHistory(){history=JSON.parse(localStorage.getItem('fg_radio_history')||'[]').slice(0,Number(config.historyLimit)||6);if(!history.length){$('#tracks').innerHTML='<div class="empty">El historial aparecerá cuando cambien los metadatos.</div>';return}$('#tracks').innerHTML=history.map(x=>`<div class="track"><img src="${esc(x.artwork||imgSrc())}" alt=""><div><strong>${esc(x.title)}</strong><small>${esc(x.artist)}</small></div><time>${new Date(x.time).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}</time></div>`).join('')}
+function renderHistory(){history=JSON.parse(localStorage.getItem('fg_radio_history')||'[]').slice(0,Number(config.historyLimit)||6);if(!history.length){$('#tracks').innerHTML='<div class="empty">El historial aparecerá cuando cambien los metadatos.</div>';return}$('#tracks').innerHTML=history.map((x,i)=>`<div class="track"><span class="track-rank">${String(i+1).padStart(2,'0')}</span><img src="${esc(x.artwork||imgSrc())}" alt=""><div><strong>${esc(x.title)}</strong><small>${esc(x.artist)}</small></div><time>${new Date(x.time).toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})}</time></div>`).join('')}
 async function pollMetadata(){try{const r=await fetch('/api/metadata',{cache:'no-store'});const d=await r.json();showMetadata(d.title,d.artist,d.artwork)}catch{showMetadata(config.fallbackTitle,resolvedFallbackArtist(),'')}}
 function setDrawer(open){const d=$('#mobileDrawer');d.classList.toggle('open',open);d.setAttribute('aria-hidden',open?'false':'true');document.body.classList.toggle('drawer-open',open)}
 $('#menuBtn').onclick=()=>setDrawer(true);$('#drawerClose').onclick=()=>setDrawer(false);$('#drawerBackdrop').onclick=()=>setDrawer(false);document.querySelectorAll('.drawer-nav a').forEach(a=>a.addEventListener('click',()=>setDrawer(false)));
 const audio=$('#audio'),play=$('#playBtn'),wave=$('#wave');play.onclick=async()=>{if(!audio.src){toast('La transmisión aún no está configurada');return}try{if(audio.paused){await audio.play();play.textContent='Ⅱ';wave.classList.remove('paused')}else{audio.pause();play.textContent='▶';wave.classList.add('paused')}}catch(e){toast('El navegador no pudo reproducir el stream. Usa una URL HTTPS compatible.')}};
 const volumeInput=$('#volume'),volumeRow=$('#volumeRow');
 function paintVolume(value,{animate=false}={}){const v=Math.max(0,Math.min(1,Number(value)||0));volumeInput.style.setProperty('--volume-fill',Math.round(v*100)+'%');$('#volumePct').textContent=Math.round(v*100)+'%';volumeRow.dataset.level=v<=.01?'0':v<.34?'1':v<.67?'2':'3';$('#volumeIcon .speaker').textContent=(audio.muted||v<=.01)?'🔇':v<.45?'🔉':'🔊';if(animate){volumeRow.classList.remove('adjusting');void volumeRow.offsetWidth;volumeRow.classList.add('adjusting');clearTimeout(paintVolume._t);paintVolume._t=setTimeout(()=>volumeRow.classList.remove('adjusting'),480)}}
-volumeInput.addEventListener('input',e=>{audio.muted=false;audio.volume=Number(e.target.value);$('#muteBtn').textContent='◔';paintVolume(audio.volume,{animate:true})});
+let volumeHideTimer=null;
+function setVolumePanel(open){volumeRow.classList.toggle('open',open);$('#muteBtn').setAttribute('aria-expanded',open?'true':'false');if(open){clearTimeout(volumeHideTimer);volumeHideTimer=setTimeout(()=>setVolumePanel(false),3200)}}
+volumeInput.addEventListener('input',e=>{audio.muted=false;audio.volume=Number(e.target.value);paintVolume(audio.volume,{animate:true});setVolumePanel(true)});
 audio.volume=.8;paintVolume(audio.volume);
-function toggleMute(){audio.muted=!audio.muted;$('#muteBtn').textContent=audio.muted?'🔇':'◔';paintVolume(audio.volume,{animate:true})}
-$('#muteBtn').onclick=toggleMute;$('#volumeIcon').onclick=toggleMute;audio.addEventListener('pause',()=>{play.textContent='▶';wave.classList.add('paused');document.body.classList.remove('playing')});audio.addEventListener('play',()=>{play.textContent='Ⅱ';wave.classList.remove('paused');document.body.classList.add('playing')});
+function toggleMute(){audio.muted=!audio.muted;paintVolume(audio.volume,{animate:true});setVolumePanel(true)}
+$('#muteBtn').onclick=()=>setVolumePanel(!volumeRow.classList.contains('open'));$('#volumeIcon').onclick=toggleMute;document.addEventListener('pointerdown',e=>{if(volumeRow.classList.contains('open')&&!volumeRow.contains(e.target)&&e.target!==$('#muteBtn'))setVolumePanel(false)});
+audio.addEventListener('pause',()=>{play.textContent='▶';wave.classList.add('paused');document.body.classList.remove('playing');if($('#ambientPlay'))$('#ambientPlay').textContent='▶'});audio.addEventListener('play',()=>{play.textContent='Ⅱ';wave.classList.remove('paused');document.body.classList.add('playing');if($('#ambientPlay'))$('#ambientPlay').textContent='Ⅱ'});
+function setAmbient(open){if(config.showAmbientMode===false)return;const a=$('#ambientMode');a.classList.toggle('open',open);a.setAttribute('aria-hidden',open?'false':'true');document.body.classList.toggle('ambient-open',open);if(open){setDrawer(false);setSocialModal(false);setTimeout(()=>$('#ambientClose')?.focus(),30)}}
+for(const id of ['navAmbientTrigger','drawerAmbientTrigger']){const el=document.getElementById(id);if(el)el.addEventListener('click',e=>{e.preventDefault();setAmbient(true)})}
+$('#ambientClose').addEventListener('click',()=>setAmbient(false));$('#ambientBackdrop').addEventListener('click',()=>setAmbient(false));$('#ambientPlay').addEventListener('click',()=>play.click());
+$('#logoAmbientTrigger').addEventListener('click',()=>{if(config.showAmbientMode!==false)setAmbient(true)});$('#logoAmbientTrigger').addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&config.showAmbientMode!==false){e.preventDefault();setAmbient(true)}});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('#ambientMode').classList.contains('open'))setAmbient(false)});
 let deferredInstallPrompt=null;
 function isStandalone(){return window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone===true}
 function isIos(){return /iphone|ipad|ipod/i.test(navigator.userAgent)}
@@ -270,7 +320,7 @@ for(const id of ['installNav','installDrawer']){const el=document.getElementById
 window.addEventListener('beforeinstallprompt',(e)=>{e.preventDefault();deferredInstallPrompt=e;if(!isStandalone())setInstallVisible(true)});
 window.addEventListener('appinstalled',()=>{deferredInstallPrompt=null;setInstallVisible(false);toast('App instalada correctamente.')});
 if(isIos()&&!isStandalone())setInstallVisible(true);
-if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js?v=140',{scope:'/'}).catch(()=>{}))}
+if('serviceWorker' in navigator){window.addEventListener('load',()=>navigator.serviceWorker.register('/sw.js?v=144',{scope:'/'}).catch(()=>{}))}
 if('serviceWorker' in navigator){let swRefreshing=false;navigator.serviceWorker.addEventListener('controllerchange',()=>{if(swRefreshing)return;swRefreshing=true;location.reload()})}
 makeWave();renderHistory();load();
 </script>
